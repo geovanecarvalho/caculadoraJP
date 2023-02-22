@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcular Boletos</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.1/css/bootstrap.min.css" integrity="sha512-6KY5s6UI5J7SVYuZB4S/CZMyPylqyyNZco376NM2Z8Sb8OxEdp02e1jkKk/wZxIEmjQ6DRCEBhni+gpr9c4tvA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.1/js/bootstrap.min.js" integrity="sha512-ewfXo9Gq53e1q1+WDTjaHAGZ8UvCWq0eXONhwDuIoaH8xz2r96uoAYaQCm1oQhnBfRXrvJztNXFsTloJfgbL5Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+    
+</head>
+<body>
+     <!-- Modal Prompt -->
+     <div class="modal fade" id="myPrompt" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header bg-primary bg-gradient text-center text-white">
+              <h4 class="modal-title" id="myModalLabel">Qual é o seu nome?</h4>
+              <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+            </div>
+            <div class="modal-body">
+                <div class="input-group mb-3">
+                    <span class="input-group-text bg-primary text-white">Nome</span>
+                    <input type="text" class="form-control" id="myName">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" id="btn-name" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+            </div>
+          </div>
+        </div>
+     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+       <div class="modal-dialog" role="document">
+         <div class="modal-content">
+           <div class="modal-header bg-primary bg-gradient text-center text-white">
+             <h4 class="modal-title" id="myModalLabel">Erro no preenchimento dos campos!</h4>
+             <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+           </div>
+           <div class="modal-body">
+                <div class="alert alert-danger" role="alert">
+                    <p>Todos os campos do fomulário <span id="alert-bloco-01"></span> são obrigatórios!</p>
+                </div>
+           </div>
+           <div class="modal-footer">
+             <button type="button" id="btn-modal" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+           </div>
+         </div>
+       </div>
+    </div>
+    <div class="container card bg-primary bg-gradient">
+        <div class="row">
+            <div class="col">
+                <h1 class="text-white p-3 text-center"><i class="fa-solid fa-handshake"></i> CALCULAR BOLETOS EM ATRASO <i class="fa-solid fa-handshake"></i> </h1>
+            </div>
+        </div>
+    </div>
+  
+    <hr class="border border-primary">
+    <div class="container mb-2" style="text-align: right;">
+        <div class="row">
+            <div class="col" style="text-align: left">
+                <a href="#" onclick="addNome()" style="text-decoration: none;"><h5><i class="fa-solid fa-user text-primary"></i> <span id="name"></span></h5></a>
+
+            </div>
+            <div class="col">
+                <button id="btn-add" type="button" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Adicionar mais blocos de calculo"><i class="fa-solid fa-plus"></i> 
+                    Blocos
+                </button>
+                
+            </div>
+        </div>
+    </div>
+    <div class="container card p-2 mb-4 border border-primary">
+        <div class="row p-2">
+            <div class="col">
+                <div class="card-header">
+                    <h5>BLOCO-01</h5>
+                    <div style="text-align: right;">
+                        
+                        <button type="button" id="btn-calc-01" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Fazer calculo parcial"><i class="fa-solid fa-calculator"></i></button>
+                       
+                        <button type="button" id="btn-limpar-01" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Limpar todos os campos bloco-01"><i class="fa-solid fa-eraser"></i></i></button>
+                    </div>
+
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text bg-primary text-white">Inicial</span>
+                    <input type="date" class="form-control" id="end-01" class="m-1"  onblur="validacaoInputEnd()">
+                    <span class="input-group-text bg-primary text-white">Final</span>
+                    <input type="date" class="form-control" id="start-01" class="m-1"  onblur="validacaoInputStart()">
+                    <span class="input-group-text bg-primary text-white">Valor R$</span>
+                    <input type="number"  step="0.01" id="valor-01" class="form-control" onblur="validacaoInputValor()" aria-label="Amount (to the nearest dollar)">
+                    <table class="table">
+                        <thead class="thead">
+                            <tr class="text-center">
+                                 <th>Juros</th>
+                                 <th>Calculo de multa</th>
+                                 <th>Dias de atraso</th>
+                                 <th>Valor Parcial</th>
+                             </tr>
+
+                        </thead>
+                       <tr class="text-center">
+                            <td>R$ <span id="juros-01">0.00</span></td>
+                            <td >R$ <span id="calc-multa-01">0.00</span></td>
+                            <td id="dias-atrazo-01">0</td>
+                            <td>R$ <span id="valor-parcial-01">0.00</span></td>
+                       </tr>
+                    </table>
+                </div>
+            </div>
+        </div>  
+    </div>
+    <div class="container card p-2 mb-4 border border-primary" style="display: none;" id="div-02">
+       <div class="row p-2">
+            <div class="col">
+                <div class="card-header">
+                    <h5>BLOCO-02</h5>
+                    <div style="text-align: right;">
+                        <button type="button" id="btn-calc-02" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Fazer calculo parcial"><i class="fa-solid fa-calculator"></i></button>
+                        <button type="button" id="btn-limpar-02" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Limpar todos os campos bloco-02"><i class="fa-solid fa-eraser"></i></i></button>
+                        <button type="button" id="btn-fechar-div-02" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Fechar bloco-02"><i class="fa-sharp fa-solid fa-xmark"></i></button>
+                    </div>
+
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text bg-primary text-white">Inicial</span>
+                    <input type="date" class="form-control" id="end-02" class="m-1" onblur="validacaoInputEnd_02()">
+                    <span class="input-group-text bg-primary text-white">Final</span>
+                    <input type="date" class="form-control" id="start-02" class="m-1" onblur="validacaoInputStart_02()">
+                    <span class="input-group-text bg-primary text-white">Valor R$</span>
+                    <input type="number"  step="0.01" id="valor-02" class="form-control" onblur="validacaoInputValor_02()" aria-label="Amount (to the nearest dollar)">
+                    <table class="table">
+                        <thead class="thead">
+                            <tr class="text-center">
+                                 <th>Juros</th>
+                                 <th>Calculo de multa</th>
+                                 <th>Dias de atraso</th>
+                                 <th>Valor Parcial</th>
+                             </tr>
+
+                        </thead>
+                       <tr class="text-center">
+                            <td>R$ <span id="juros-02">0.00</span></td>
+                            <td >R$ <span id="calc-multa-02">0.00</span></td>
+                            <td id="dias-atrazo-02">0</td>
+                            <td>R$ <span id="valor-parcial-02">0.00</span></td>
+                       </tr>
+                    </table>
+                </div>
+
+            </div>
+        </div>  
+    </div>
+
+    <div class="container card p-2 mb-4 border border-primary" style="display: none;" id="div-03">
+        <div class="row p-2">
+             <div class="col">
+                 <div class="card-header">
+                     <h5>BLOCO-03</h5>
+                     <div style="text-align: right;">
+                         <button type="button" id="btn-calc-03" class="btn btn-secondary"><i class="fa-solid fa-calculator"></i></button>
+                         <button type="button" id="btn-limpar-03" class="btn btn-success"><i class="fa-solid fa-eraser"></i></i></button>
+                         <button type="button" id="btn-fechar-div-03" class="btn btn-danger"><i class="fa-sharp fa-solid fa-xmark"></i></button>
+                     </div>
+ 
+                 </div>
+                 <div class="input-group mb-3">
+                    <span class="input-group-text bg-primary text-white">Inicial</span>   
+                    <input type="date" class="form-control" id="end-03" class="m-1" onblur="validacaoInputEnd_03()">
+                    <span class="input-group-text bg-primary text-white">Final</span>
+                    <input type="date" class="form-control" id="start-03" class="m-1" onblur="validacaoInputStart_03()">
+                    <span class="input-group-text bg-primary text-white">Valor R$</span>
+                    <input type="number"  step="0.01" id="valor-03" class="form-control" onblur="validacaoInputValor_03()" aria-label="Amount (to the nearest dollar)">
+                    <table class="table">
+                        <thead class="thead">
+                            <tr class="text-center">
+                                <th>Juros</th>
+                                <th>Calculo de multa</th>
+                                <th>Dias de atraso</th>
+                                <th>Valor Parcial</th>
+                            </tr>
+ 
+                        </thead>
+                        <tr class="text-center">
+                             <td>R$ <span id="juros-03">0.00</span></td>
+                             <td >R$ <span id="calc-multa-03">0.00</span></td>
+                             <td id="dias-atrazo-03">0</td>
+                             <td>R$ <span id="valor-parcial-03">0.00</span></td>
+                        </tr>
+                     </table>
+                 </div>
+ 
+             </div>
+         </div>  
+     </div>
+    <div class="container card bg-primary">
+        <div class="row p-2 bg-primary bg-gradient text-white">
+            <div class="col">
+                
+                <h2>Valor Total = <strong class="bg-white p-3 border border-primary text-success" style="border-radius: 5%;">R$ <span id="total">0.00</span> <i class="fa-solid fa-sack-dollar"></i></strong></h2>
+                <div style="text-align: right;">
+                    <button  id="btn-imprimir"  type="button" class="btn btn-success btn-lg" data-toggle="tooltip" data-placement="top" title="Imprimir documento"><i class="fa-solid fa-print"></i></button>
+                </div>
+                <div class="text-center">
+                    © 2023 Copyright Jardim Paraiso
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+    // Objeto bloco
+    class Bloco{
+        constructor(){
+            this._valor_parcial = 0.00
+            this._calc_multa = 0.00
+            this._juros = 0.00
+            this._dias_atrazo = 0
+            
+        }
+        getValorParcial(){
+            return this._valor_parcial
+        }
+        
+        getCalcMulta(){
+            return this._calc_multa
+        }
+        
+        getJuros(){
+            return this._juros
+        }
+        getDiasAtrazo(){
+            return this._dias_atrazo
+        }
+        
+        setValorParcial(valor_parcial){
+            this._valor_parcial = valor_parcial
+        }
+        
+        setCalcMulta(calc_multa){
+            this._calc_multa = calc_multa
+        }
+        
+        setJuros(juros){
+            this._juros = juros
+        }
+        
+        setDiasAtrazo(dias_atrazo){
+            this._dias_atrazo = dias_atrazo
+        }
+        
+        calcularValor(inputStart, inputEnd, inputValor){
+            let start = inputStart.value
+            let end = inputEnd.value
+            let valor = inputValor.value
+    
+            start = new Date(start)
+            end = new Date(end)
+    
+            let diffInTime = Math.abs(end - start)
+            let timeInOneDays = 1000 * 60 * 60 * 24
+            let diffInDays = Math.ceil(diffInTime / timeInOneDays)
+    
+            if (valor > 0){
+                let juros_ao_dia = 0.12/12/30
+                let calc_multa = parseFloat(valor * 0.02).toFixed(2)
+                let calc_juros = juros_ao_dia * diffInDays
+                let juros = parseFloat(valor * calc_juros).toFixed(2)
+                
+                let total = parseFloat(valor) + parseFloat(juros) + parseFloat(calc_multa)   
+                    
+                if (diffInDays == 0){
+                    this.setValorParcial(valor)
+                }else{
+
+                    this.setValorParcial(total)
+                }
+                
+            }
+            else{
+                
+                this.setValorParcial(0)
+            }
+        }
+
+        diasAtrazados(inputStart, inputEnd){
+            let start = inputStart.value
+            let end = inputEnd.value
+
+            start = new Date(start)
+            end = new Date(end)
+
+            let diffInTime = Math.abs(end - start)
+            let timeInOneDays = 1000 * 60 * 60 * 24
+            let diffInDays = Math.ceil(diffInTime / timeInOneDays)
+
+            this.setDiasAtrazo(diffInDays)
+        }
+
+        calcularMulta(inputStart, inputEnd ,inputValor){
+            let start = inputStart.value
+            let end = inputEnd.value
+
+            start = new Date(start)
+            end = new Date(end)
+
+            let diffInTime = Math.abs(end - start)
+            let timeInOneDays = 1000 * 60 * 60 * 24
+            let diffInDays = Math.ceil(diffInTime / timeInOneDays)
+
+            let valor = inputValor.value
+            let calc_multa = parseFloat(valor * 0.02).toFixed(2)
+
+            if (diffInDays == 0){
+                this.setCalcMulta(0.00)
+            }else{
+
+                this.setCalcMulta(calc_multa)
+            }
+        }
+
+        calcularJuros(inputStart, inputEnd, inputValor){
+            let start = inputStart.value
+            let end = inputEnd.value
+            let valor = inputValor.value
+    
+            start = new Date(start)
+            end = new Date(end)
+    
+            let diffInTime = Math.abs(end - start)
+            let timeInOneDays = 1000 * 60 * 60 * 24
+            let diffInDays = Math.ceil(diffInTime / timeInOneDays)
+    
+            if (valor > 0){
+                let juros_ao_dia = 0.12/12/30
+                let calc_multa = parseFloat(valor * 0.02).toFixed(2)
+                let calc_juros = juros_ao_dia * diffInDays
+                let juros = parseFloat(valor * calc_juros).toFixed(2)
+                
+                
+                    
+                if (diffInDays == 0){
+                    this.setJuros(0)
+                }else{
+
+                    this.setJuros(juros)
+                }
+                
+            }
+            else{
+                
+                this.setJuros(0)
+            }
+        }
+    }
+    // ID alert modal
+    let alert_bloco_01 = document.querySelector("#alert-bloco-01")
+    let alert_bloco_02 = document.querySelector("#alert-bloco-02")
+    let alert_bloco_03 = document.querySelector("#alert-bloco-03")
+
+    // Contador de div
+    let contador = 1
+
+    // Instancias dos objetos de bloco
+    let bloco_01 =  new Bloco()
+    let bloco_02 = new Bloco()
+    let bloco_03 = new Bloco()
+    
+    // ID dos inputs html 
+
+    //imput modal name
+    let inputName = document.querySelector("#myName")
+
+    // Bloco-01
+    let inputValor = document.querySelector("#valor-01")
+    let inputStart = document.querySelector("#start-01")
+    let inputEnd = document.querySelector("#end-01")
+
+    // Bloco-02
+    let inputValor_02 = document.querySelector("#valor-02")
+    let inputStart_02 = document.querySelector("#start-02")
+    let inputEnd_02 = document.querySelector("#end-02")
+
+    // Bloco-02
+    let inputValor_03 = document.querySelector("#valor-03")
+    let inputStart_03 = document.querySelector("#start-03")
+    let inputEnd_03 = document.querySelector("#end-03")
+
+    // ID dos resultados bloco-01
+
+    // Bloco-01
+    let dadosJuros = document.querySelector("#juros-01")
+    let dadosCalcMulta = document.querySelector("#calc-multa-01")
+    let dadosDiasAtrazo = document.querySelector("#dias-atrazo-01")
+    let dadosValorParcial = document.querySelector("#valor-parcial-01")
+
+    // Bloco-02
+    let dadosJuros_02 = document.querySelector("#juros-02")
+    let dadosCalcMulta_02 = document.querySelector("#calc-multa-02")
+    let dadosDiasAtrazo_02 = document.querySelector("#dias-atrazo-02")
+    let dadosValorParcial_02 = document.querySelector("#valor-parcial-02")
+
+    // Bloco-03
+    let dadosJuros_03 = document.querySelector("#juros-03")
+    let dadosCalcMulta_03 = document.querySelector("#calc-multa-03")
+    let dadosDiasAtrazo_03 = document.querySelector("#dias-atrazo-03")
+    let dadosValorParcial_03 = document.querySelector("#valor-parcial-03")
+
+    // span innerhtml para adicionar nome
+    let name = document.querySelector("#name")
+
+    //ID buttons
+    
+    // Btn modal
+    let btnModal = document.querySelector("#btn-modal")
+
+    // Btn name
+    let btnMyName = document.querySelector("#btn-name")
+
+    //Bloco-01
+    let btnCalc_01 = document.querySelector("#btn-calc-01")
+    let btnLimpar_01 = document.querySelector("#btn-limpar-01")
+    
+    //Bloco-02
+    let btnCalc_02 = document.querySelector("#btn-calc-02")
+    let btnLimpar_02 = document.querySelector("#btn-limpar-02")
+    let btnFecharDiv_02 = document.querySelector("#btn-fechar-div-02")
+
+    //Bloco-03
+    let btnCalc_03 = document.querySelector("#btn-calc-03")
+    let btnLimpar_03 = document.querySelector("#btn-limpar-03")
+    let btnFecharDiv_03 = document.querySelector("#btn-fechar-div-03")
+
+    let btnImprimir = document.querySelector("#btn-imprimir")
+    let btnAdd = document.querySelector("#btn-add")
+
+    //ID resultado total
+    let dadosTotal = document.querySelector("#total")
+    
+    //ID das divs para adicionar bloco
+    let div_02 = document.querySelector("#div-02")
+    let div_03 = document.querySelector("#div-03")
+
+    // validacao bloco-01
+    function validacaoBloco_01(){
+        // bloco-02
+        if (inputValor.value == ""){
+            inputValor.classList.add("is-invalid")
+        }
+        if (inputStart.value == ""){
+            inputStart.classList.add("is-invalid")
+            
+        }
+        if (inputEnd.value == ""){
+            inputEnd.classList.add("is-invalid")
+        }
+    }
+    
+    // validacao bloco-02
+    function validacaoBloco_02(){
+        // bloco-02
+        if (inputValor_02.value == ""){
+            inputValor_02.classList.add("is-invalid")
+        }
+        if (inputStart_02.value == ""){
+            inputStart_02.classList.add("is-invalid")
+            
+        }
+        if (inputEnd_02.value == ""){
+            inputEnd_02.classList.add("is-invalid")
+        }
+    }
+
+     // validacao bloco-03
+     function validacaoBloco_03(){
+        // bloco-03
+        if (inputValor_03.value == ""){
+            inputValor_03.classList.add("is-invalid")
+        }
+        if (inputStart_03.value == ""){
+            inputStart_03.classList.add("is-invalid")
+            
+        }
+        if (inputEnd_03.value == ""){
+            inputEnd_03.classList.add("is-invalid")
+        }
+    }
+    
+    //btn para Adicionar nome
+    btnMyName.onclick = function(){
+        texto = inputName.value
+        console.log(texto)
+        if (texto == ""){
+         
+        }else{
+            localStorage.setItem("name", texto)
+            name.innerHTML = localStorage.getItem("name")
+
+        }
+    }
+
+
+
+    //btn para adicionar div proximo bloco
+    btnAdd.onclick = function(){
+        contador ++
+        if (contador >3){
+            contador = 1
+        }
+
+        if (contador ==2){
+            div_02.style.display = "block"
+        }
+        if (contador ==3){
+            div_03.style.display = "block"
+        }
+        console.log(contador)
+
+
+    }
+
+    //Calcular valor parcial bloco-01
+    btnCalc_01.onclick = function(){
+        
+        if (inputStart.value =="" || inputEnd.value =="" || inputValor.value == ""){
+            //alert("Todos os campos do bloco-01 são obrigatórios")
+            alert_bloco_01.innerHTML = "Bloco-01"
+            validacaoBloco_01()
+            
+            $('#myModal').modal('show');
+           
+            
+        }else{
+            bloco_01.calcularJuros(inputStart, inputEnd, inputValor)
+            bloco_01.calcularMulta(inputStart, inputEnd ,inputValor)
+            bloco_01.diasAtrazados(inputStart, inputEnd)
+            bloco_01.calcularValor(inputStart, inputEnd, inputValor)
+
+            dadosJuros.innerHTML = parseFloat(bloco_01.getJuros()).toFixed(2)
+            dadosCalcMulta.innerHTML = parseFloat(bloco_01.getCalcMulta()).toFixed(2)
+            dadosDiasAtrazo.innerHTML = bloco_01.getDiasAtrazo()
+            dadosValorParcial.innerHTML = parseFloat(bloco_01.getValorParcial()).toFixed(2)
+            valorTotal()
+        }
+    }
+
+    //Calcular valor parcial bloco-02
+    btnCalc_02.onclick = function(){
+        
+        if (inputStart_02.value =="" || inputEnd_02.value =="" || inputValor_02.value == ""){
+           // alert("Todos os campos do bloco-02 são obrigatórios")
+           alert_bloco_01.innerHTML = "Bloco-02"
+           validacaoBloco_02()
+           
+           $('#myModal').modal('show');
+        }else{
+            bloco_02.calcularJuros(inputStart_02, inputEnd_02, inputValor_02)
+            bloco_02.calcularMulta(inputStart_02, inputEnd_02 ,inputValor_02)
+            bloco_02.diasAtrazados(inputStart_02, inputEnd_02)
+            bloco_02.calcularValor(inputStart_02, inputEnd_02, inputValor_02)
+
+            dadosJuros_02.innerHTML = parseFloat(bloco_02.getJuros()).toFixed(2)
+            dadosCalcMulta_02.innerHTML = parseFloat(bloco_02.getCalcMulta()).toFixed(2)
+            dadosDiasAtrazo_02.innerHTML = bloco_02.getDiasAtrazo()
+            dadosValorParcial_02.innerHTML = parseFloat(bloco_02.getValorParcial()).toFixed(2)
+            valorTotal()
+        }
+    }
+
+    //Calcular valor parcial bloco-03
+    btnCalc_03.onclick = function(){
+        
+        if (inputStart_03.value =="" || inputEnd_03.value =="" || inputValor_03.value == ""){
+           // alert("Todos os campos do bloco-02 são obrigatórios")
+           alert_bloco_01.innerHTML = "Bloco-03"
+           validacaoBloco_03()
+           
+           $('#myModal').modal('show');
+        }else{
+            bloco_03.calcularJuros(inputStart_03, inputEnd_03, inputValor_03)
+            bloco_03.calcularMulta(inputStart_03, inputEnd_03 ,inputValor_03)
+            bloco_03.diasAtrazados(inputStart_03, inputEnd_03)
+            bloco_03.calcularValor(inputStart_03, inputEnd_03, inputValor_03)
+
+            dadosJuros_03.innerHTML = parseFloat(bloco_03.getJuros()).toFixed(2)
+            dadosCalcMulta_03.innerHTML = parseFloat(bloco_03.getCalcMulta()).toFixed(2)
+            dadosDiasAtrazo_03.innerHTML = bloco_03.getDiasAtrazo()
+            dadosValorParcial_03.innerHTML = parseFloat(bloco_03.getValorParcial()).toFixed(2)
+            valorTotal()
+        }
+    }
+
+    //btn para limpar dados bloco-01
+    btnLimpar_01.onclick = function(){
+        inputEnd.value = ""
+        inputStart.value = ""
+        inputValor.value = ""
+
+        dadosJuros.innerHTML = parseFloat(0.00).toFixed(2)
+        dadosCalcMulta.innerHTML = parseFloat(0.00).toFixed(2)
+        dadosDiasAtrazo.innerHTML = 0
+        dadosValorParcial.innerHTML = parseFloat(0.00).toFixed(2)
+
+        bloco_01.setJuros(0.00)
+        bloco_01.setCalcMulta(0.00)
+        bloco_01.setDiasAtrazo(0)
+        bloco_01.setValorParcial(0.00)
+
+        inputValor.classList.remove("is-invalid")
+        inputValor.classList.remove("is-valid")
+        inputStart.classList.remove("is-invalid")
+        inputStart.classList.remove("is-valid")
+        inputEnd.classList.remove("is-invalid")
+        inputEnd.classList.remove("is-valid")
+
+        valorTotal()
+        
+    }
+
+     //btn para limpar dados bloco-02
+     btnLimpar_02.onclick = function(){
+        inputEnd_02.value = ""
+        inputStart_02.value = ""
+        inputValor_02.value = ""
+
+        dadosJuros_02.innerHTML = parseFloat(0.00).toFixed(2)
+        dadosCalcMulta_02.innerHTML = parseFloat(0.00).toFixed(2)
+        dadosDiasAtrazo_02.innerHTML = 0
+        dadosValorParcial_02.innerHTML = parseFloat(0.00).toFixed(2)
+
+        bloco_02.setJuros(0.00)
+        bloco_02.setCalcMulta(0.00)
+        bloco_02.setDiasAtrazo(0)
+        bloco_02.setValorParcial(0.00)
+
+        inputValor_02.classList.remove("is-invalid")
+        inputValor_02.classList.remove("is-valid")
+        inputStart_02.classList.remove("is-invalid")
+        inputStart_02.classList.remove("is-valid")
+        inputEnd_02.classList.remove("is-invalid")
+        inputEnd_02.classList.remove("is-valid")
+
+        valorTotal()
+        
+    }
+
+     //btn para limpar dados bloco-03
+     btnLimpar_03.onclick = function(){
+        inputEnd_03.value = ""
+        inputStart_03.value = ""
+        inputValor_03.value = ""
+
+        dadosJuros_03.innerHTML = parseFloat(0.00).toFixed(2)
+        dadosCalcMulta_03.innerHTML = parseFloat(0.00).toFixed(2)
+        dadosDiasAtrazo_03.innerHTML = 0
+        dadosValorParcial_03.innerHTML = parseFloat(0.00).toFixed(2)
+
+        bloco_03.setJuros(0.00)
+        bloco_03.setCalcMulta(0.00)
+        bloco_03.setDiasAtrazo(0)
+        bloco_03.setValorParcial(0.00)
+
+        inputValor_03.classList.remove("is-invalid")
+        inputValor_03.classList.remove("is-valid")
+        inputStart_03.classList.remove("is-invalid")
+        inputStart_03.classList.remove("is-valid")
+        inputEnd_03.classList.remove("is-invalid")
+        inputEnd_03.classList.remove("is-valid")
+
+        valorTotal()
+        
+    }
+
+    //btn fechar div bloco-02
+    btnFecharDiv_02.onclick = function(){
+        inputEnd_02.value = ""
+        inputStart_02.value = ""
+        inputValor_02.value = ""
+
+        dadosJuros_02.innerHTML = parseFloat(0.00).toFixed(2)
+        dadosCalcMulta_02.innerHTML = parseFloat(0.00).toFixed(2)
+        dadosDiasAtrazo_02.innerHTML = 0
+        dadosValorParcial_02.innerHTML = parseFloat(0.00).toFixed(2)
+
+        bloco_02.setJuros(0.00)
+        bloco_02.setCalcMulta(0.00)
+        bloco_02.setDiasAtrazo(0)
+        bloco_02.setValorParcial(0.00)
+
+        valorTotal()
+
+        div_02.style.display = 'none'
+
+        contador = 1
+
+    }
+
+     //btn fechar div bloco-03
+     btnFecharDiv_03.onclick = function(){
+        inputEnd_03.value = ""
+        inputStart_03.value = ""
+        inputValor_03.value = ""
+
+        dadosJuros_03.innerHTML = parseFloat(0.00).toFixed(2)
+        dadosCalcMulta_03.innerHTML = parseFloat(0.00).toFixed(2)
+        dadosDiasAtrazo_03.innerHTML = 0
+        dadosValorParcial_03.innerHTML = parseFloat(0.00).toFixed(2)
+
+        bloco_03.setJuros(0.00)
+        bloco_03.setCalcMulta(0.00)
+        bloco_03.setDiasAtrazo(0)
+        bloco_03.setValorParcial(0.00)
+
+        valorTotal()
+
+        div_03.style.display = 'none'
+
+        contador = 2
+
+    }
+
+
+    //Calculo total
+    function valorTotal(){
+        let valor_01 = parseFloat(bloco_01.getValorParcial())
+        let valor_02 = parseFloat(bloco_02.getValorParcial())
+        let valor_03 = parseFloat(bloco_03.getValorParcial())
+
+        let total = valor_01 + valor_02 + valor_03
+        
+        dadosTotal.innerHTML = parseFloat(total).toFixed(2)
+    }
+    btnModal.onclick = function(){
+      
+     
+    }
+    btnImprimir.onclick = function(){
+        window.print()
+    }
+
+    // funções para validação input valid bloco-01
+    function validacaoInputValor(){
+        inputValor.classList.remove("is-invalid")
+        inputValor.classList.add("is-valid")
+    }
+    function validacaoInputStart(){
+        inputStart.classList.remove("is-invalid")
+        inputStart.classList.add("is-valid")
+    }
+    function validacaoInputEnd(){  
+        inputEnd.classList.remove("is-invalid")
+        inputEnd.classList.add("is-valid")
+    }
+
+     // funções para validação bloco-02
+     function validacaoInputValor_02(){
+        inputValor_02.classList.remove("is-invalid")
+        inputValor_02.classList.add("is-valid")
+    }
+    function validacaoInputStart_02(){
+        inputStart_02.classList.remove("is-invalid")
+        inputStart_02.classList.add("is-valid")
+    }
+    function validacaoInputEnd_02(){  
+        inputEnd_02.classList.remove("is-invalid")
+        inputEnd_02.classList.add("is-valid")
+    }
+    
+      // funções para validação bloco-03
+      function validacaoInputValor_03(){
+        inputValor_03.classList.remove("is-invalid")
+        inputValor_03.classList.add("is-valid")
+    }
+    function validacaoInputStart_03(){
+        inputStart_03.classList.remove("is-invalid")
+        inputStart_03.classList.add("is-valid")
+    }
+    function validacaoInputEnd_03(){  
+        inputEnd_03.classList.remove("is-invalid")
+        inputEnd_03.classList.add("is-valid")
+    }
+    
+    function addNome(){
+        $('#myPrompt').modal('show');
+    }
+
+    window.onload = function(){
+        if (localStorage.getItem("name") == null){
+            name.innerHTML = "Escreva seu nome aqui!"
+
+        }else{
+            name.innerHTML = localStorage.getItem("name")
+        }
+
+            
+    }
+    //formater = Intl.DateTimeFormat('pt-BR',{datestyle: "long"})
+    //b = Date.parse(a)
+    //formater.format(b)
+
+</script>
+<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/67e21d80b0.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+</body>
+</html>
