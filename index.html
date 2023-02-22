@@ -34,7 +34,7 @@
           </div>
         </div>
      </div>
-    <!-- Modal -->
+    <!-- Modal Alert-->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
        <div class="modal-dialog" role="document">
          <div class="modal-content">
@@ -53,6 +53,7 @@
          </div>
        </div>
     </div>
+    <!-- header -->
     <div class="container card bg-primary bg-gradient">
         <div class="row">
             <div class="col">
@@ -60,7 +61,7 @@
             </div>
         </div>
     </div>
-  
+    <!-- add nome e add blocos -->
     <hr class="border border-primary">
     <div class="container mb-2" style="text-align: right;">
         <div class="row">
@@ -76,6 +77,7 @@
             </div>
         </div>
     </div>
+    <!-- Bloco 01 -->
     <div class="container card p-2 mb-4 border border-primary">
         <div class="row p-2">
             <div class="col">
@@ -117,6 +119,7 @@
             </div>
         </div>  
     </div>
+    <!-- Bloco 02 -->
     <div class="container card p-2 mb-4 border border-primary" style="display: none;" id="div-02">
        <div class="row p-2">
             <div class="col">
@@ -158,7 +161,7 @@
             </div>
         </div>  
     </div>
-
+    <!-- Bloco 03 -->
     <div class="container card p-2 mb-4 border border-primary" style="display: none;" id="div-03">
         <div class="row p-2">
              <div class="col">
@@ -193,6 +196,90 @@
                              <td >R$ <span id="calc-multa-03">0.00</span></td>
                              <td id="dias-atrazo-03">0</td>
                              <td>R$ <span id="valor-parcial-03">0.00</span></td>
+                        </tr>
+                     </table>
+                 </div>
+ 
+             </div>
+         </div>  
+     </div>
+      <!-- Bloco 04 -->
+    <div class="container card p-2 mb-4 border border-primary" style="display: none;" id="div-04">
+        <div class="row p-2">
+             <div class="col">
+                 <div class="card-header">
+                     <h5>BLOCO-04</h5>
+                     <div style="text-align: right;">
+                         <button type="button" id="btn-calc-04" class="btn btn-secondary"><i class="fa-solid fa-calculator"></i></button>
+                         <button type="button" id="btn-limpar-04" class="btn btn-success"><i class="fa-solid fa-eraser"></i></i></button>
+                         <button type="button" id="btn-fechar-div-04" class="btn btn-danger"><i class="fa-sharp fa-solid fa-xmark"></i></button>
+                     </div>
+ 
+                 </div>
+                 <div class="input-group mb-3">
+                    <span class="input-group-text bg-primary text-white">Inicial</span>   
+                    <input type="date" class="form-control" id="end-04" class="m-1" onblur="validacaoInputEnd_04()">
+                    <span class="input-group-text bg-primary text-white">Final</span>
+                    <input type="date" class="form-control" id="start-04" class="m-1" onblur="validacaoInputStart_04()">
+                    <span class="input-group-text bg-primary text-white">Valor R$</span>
+                    <input type="number"  step="0.01" id="valor-04" class="form-control" onblur="validacaoInputValor_04()" aria-label="Amount (to the nearest dollar)">
+                    <table class="table">
+                        <thead class="thead">
+                            <tr class="text-center">
+                                <th>Juros</th>
+                                <th>Calculo de multa</th>
+                                <th>Dias de atraso</th>
+                                <th>Valor Parcial</th>
+                            </tr>
+ 
+                        </thead>
+                        <tr class="text-center">
+                             <td>R$ <span id="juros-04">0.00</span></td>
+                             <td >R$ <span id="calc-multa-04">0.00</span></td>
+                             <td id="dias-atrazo-04">0</td>
+                             <td>R$ <span id="valor-parcial-04">0.00</span></td>
+                        </tr>
+                     </table>
+                 </div>
+ 
+             </div>
+         </div>  
+     </div>
+      <!-- Bloco 05 -->
+    <div class="container card p-2 mb-4 border border-primary" style="display: none;" id="div-05">
+        <div class="row p-2">
+             <div class="col">
+                 <div class="card-header">
+                     <h5>BLOCO-05</h5>
+                     <div style="text-align: right;">
+                         <button type="button" id="btn-calc-05" class="btn btn-secondary"><i class="fa-solid fa-calculator"></i></button>
+                         <button type="button" id="btn-limpar-05" class="btn btn-success"><i class="fa-solid fa-eraser"></i></i></button>
+                         <button type="button" id="btn-fechar-div-05" class="btn btn-danger"><i class="fa-sharp fa-solid fa-xmark"></i></button>
+                     </div>
+ 
+                 </div>
+                 <div class="input-group mb-3">
+                    <span class="input-group-text bg-primary text-white">Inicial</span>   
+                    <input type="date" class="form-control" id="end-05" class="m-1" onblur="validacaoInputEnd_05()">
+                    <span class="input-group-text bg-primary text-white">Final</span>
+                    <input type="date" class="form-control" id="start-05" class="m-1" onblur="validacaoInputStart_05()">
+                    <span class="input-group-text bg-primary text-white">Valor R$</span>
+                    <input type="number"  step="0.01" id="valor-05" class="form-control" onblur="validacaoInputValor_05()" aria-label="Amount (to the nearest dollar)">
+                    <table class="table">
+                        <thead class="thead">
+                            <tr class="text-center">
+                                <th>Juros</th>
+                                <th>Calculo de multa</th>
+                                <th>Dias de atraso</th>
+                                <th>Valor Parcial</th>
+                            </tr>
+ 
+                        </thead>
+                        <tr class="text-center">
+                             <td>R$ <span id="juros-05">0.00</span></td>
+                             <td >R$ <span id="calc-multa-05">0.00</span></td>
+                             <td id="dias-atrazo-05">0</td>
+                             <td>R$ <span id="valor-parcial-05">0.00</span></td>
                         </tr>
                      </table>
                  </div>
@@ -364,6 +451,8 @@
     let alert_bloco_01 = document.querySelector("#alert-bloco-01")
     let alert_bloco_02 = document.querySelector("#alert-bloco-02")
     let alert_bloco_03 = document.querySelector("#alert-bloco-03")
+    let alert_bloco_04 = document.querySelector("#alert-bloco-04")
+    let alert_bloco_05 = document.querySelector("#alert-bloco-05")
 
     // Contador de div
     let contador = 1
@@ -372,6 +461,8 @@
     let bloco_01 =  new Bloco()
     let bloco_02 = new Bloco()
     let bloco_03 = new Bloco()
+    let bloco_04 = new Bloco()
+    let bloco_05 = new Bloco()
     
     // ID dos inputs html 
 
@@ -388,10 +479,20 @@
     let inputStart_02 = document.querySelector("#start-02")
     let inputEnd_02 = document.querySelector("#end-02")
 
-    // Bloco-02
+    // Bloco-03
     let inputValor_03 = document.querySelector("#valor-03")
     let inputStart_03 = document.querySelector("#start-03")
     let inputEnd_03 = document.querySelector("#end-03")
+
+    // Bloco-04
+    let inputValor_04 = document.querySelector("#valor-04")
+    let inputStart_04 = document.querySelector("#start-04")
+    let inputEnd_04 = document.querySelector("#end-04")
+
+    // Bloco-05
+    let inputValor_05 = document.querySelector("#valor-05")
+    let inputStart_05 = document.querySelector("#start-05")
+    let inputEnd_05 = document.querySelector("#end-05")
 
     // ID dos resultados bloco-01
 
@@ -412,6 +513,20 @@
     let dadosCalcMulta_03 = document.querySelector("#calc-multa-03")
     let dadosDiasAtrazo_03 = document.querySelector("#dias-atrazo-03")
     let dadosValorParcial_03 = document.querySelector("#valor-parcial-03")
+
+    // Bloco-04
+    let dadosJuros_04 = document.querySelector("#juros-04")
+    let dadosCalcMulta_04 = document.querySelector("#calc-multa-04")
+    let dadosDiasAtrazo_04 = document.querySelector("#dias-atrazo-04")
+    let dadosValorParcial_04 = document.querySelector("#valor-parcial-04")
+
+
+    // Bloco-05
+    let dadosJuros_05 = document.querySelector("#juros-05")
+    let dadosCalcMulta_05 = document.querySelector("#calc-multa-05")
+    let dadosDiasAtrazo_05 = document.querySelector("#dias-atrazo-05")
+    let dadosValorParcial_05 = document.querySelector("#valor-parcial-05")
+
 
     // span innerhtml para adicionar nome
     let name = document.querySelector("#name")
@@ -438,6 +553,16 @@
     let btnLimpar_03 = document.querySelector("#btn-limpar-03")
     let btnFecharDiv_03 = document.querySelector("#btn-fechar-div-03")
 
+    //Bloco-04
+    let btnCalc_04 = document.querySelector("#btn-calc-04")
+    let btnLimpar_04 = document.querySelector("#btn-limpar-04")
+    let btnFecharDiv_04 = document.querySelector("#btn-fechar-div-04")
+
+    //Bloco-05
+    let btnCalc_05 = document.querySelector("#btn-calc-05")
+    let btnLimpar_05 = document.querySelector("#btn-limpar-05")
+    let btnFecharDiv_05 = document.querySelector("#btn-fechar-div-05")
+
     let btnImprimir = document.querySelector("#btn-imprimir")
     let btnAdd = document.querySelector("#btn-add")
 
@@ -447,6 +572,8 @@
     //ID das divs para adicionar bloco
     let div_02 = document.querySelector("#div-02")
     let div_03 = document.querySelector("#div-03")
+    let div_04 = document.querySelector("#div-04")
+    let div_05 = document.querySelector("#div-05")
 
     // validacao bloco-01
     function validacaoBloco_01(){
@@ -493,6 +620,36 @@
         }
     }
     
+     // validacao bloco-04
+     function validacaoBloco_04(){
+        // bloco-04
+        if (inputValor_04.value == ""){
+            inputValor_04.classList.add("is-invalid")
+        }
+        if (inputStart_04.value == ""){
+            inputStart_04.classList.add("is-invalid")
+            
+        }
+        if (inputEnd_04.value == ""){
+            inputEnd_04.classList.add("is-invalid")
+        }
+    }
+
+     // validacao bloco-05
+     function validacaoBloco_05(){
+        // bloco-05
+        if (inputValor_05.value == ""){
+            inputValor_05.classList.add("is-invalid")
+        }
+        if (inputStart_05.value == ""){
+            inputStart_05.classList.add("is-invalid")
+            
+        }
+        if (inputEnd_05.value == ""){
+            inputEnd_05.classList.add("is-invalid")
+        }
+    }
+
     //btn para Adicionar nome
     btnMyName.onclick = function(){
         texto = inputName.value
@@ -511,7 +668,7 @@
     //btn para adicionar div proximo bloco
     btnAdd.onclick = function(){
         contador ++
-        if (contador >3){
+        if (contador >5){
             contador = 1
         }
 
@@ -520,6 +677,12 @@
         }
         if (contador ==3){
             div_03.style.display = "block"
+        }
+        if (contador ==4){
+            div_04.style.display = "block"
+        }
+        if (contador ==5){
+            div_05.style.display = "block"
         }
         console.log(contador)
 
@@ -596,6 +759,53 @@
             valorTotal()
         }
     }
+
+     //Calcular valor parcial bloco-04
+     btnCalc_04.onclick = function(){
+        
+        if (inputStart_04.value =="" || inputEnd_04.value =="" || inputValor_04.value == ""){
+           // alert("Todos os campos do bloco-04 são obrigatórios")
+           alert_bloco_01.innerHTML = "Bloco-04"
+           validacaoBloco_04()
+           
+           $('#myModal').modal('show');
+        }else{
+            bloco_04.calcularJuros(inputStart_04, inputEnd_04, inputValor_04)
+            bloco_04.calcularMulta(inputStart_04, inputEnd_04 ,inputValor_04)
+            bloco_04.diasAtrazados(inputStart_04, inputEnd_04)
+            bloco_04.calcularValor(inputStart_04, inputEnd_04, inputValor_04)
+
+            dadosJuros_04.innerHTML = parseFloat(bloco_04.getJuros()).toFixed(2)
+            dadosCalcMulta_04.innerHTML = parseFloat(bloco_04.getCalcMulta()).toFixed(2)
+            dadosDiasAtrazo_04.innerHTML = bloco_04.getDiasAtrazo()
+            dadosValorParcial_04.innerHTML = parseFloat(bloco_04.getValorParcial()).toFixed(2)
+            valorTotal()
+        }
+    }
+
+     //Calcular valor parcial bloco-05
+     btnCalc_05.onclick = function(){
+        
+        if (inputStart_05.value =="" || inputEnd_05.value =="" || inputValor_05.value == ""){
+           // alert("Todos os campos do bloco-05 são obrigatórios")
+           alert_bloco_01.innerHTML = "Bloco-05"
+           validacaoBloco_05()
+           
+           $('#myModal').modal('show');
+        }else{
+            bloco_05.calcularJuros(inputStart_05, inputEnd_05, inputValor_05)
+            bloco_05.calcularMulta(inputStart_05, inputEnd_05 ,inputValor_05)
+            bloco_05.diasAtrazados(inputStart_05, inputEnd_05)
+            bloco_05.calcularValor(inputStart_05, inputEnd_05, inputValor_05)
+
+            dadosJuros_05.innerHTML = parseFloat(bloco_05.getJuros()).toFixed(2)
+            dadosCalcMulta_05.innerHTML = parseFloat(bloco_05.getCalcMulta()).toFixed(2)
+            dadosDiasAtrazo_05.innerHTML = bloco_05.getDiasAtrazo()
+            dadosValorParcial_05.innerHTML = parseFloat(bloco_05.getValorParcial()).toFixed(2)
+            valorTotal()
+        }
+    }
+
 
     //btn para limpar dados bloco-01
     btnLimpar_01.onclick = function(){
@@ -678,6 +888,60 @@
         
     }
 
+     //btn para limpar dados bloco-04
+     btnLimpar_04.onclick = function(){
+        inputEnd_04.value = ""
+        inputStart_04.value = ""
+        inputValor_04.value = ""
+
+        dadosJuros_04.innerHTML = parseFloat(0.00).toFixed(2)
+        dadosCalcMulta_04.innerHTML = parseFloat(0.00).toFixed(2)
+        dadosDiasAtrazo_04.innerHTML = 0
+        dadosValorParcial_04.innerHTML = parseFloat(0.00).toFixed(2)
+
+        bloco_04.setJuros(0.00)
+        bloco_04.setCalcMulta(0.00)
+        bloco_04.setDiasAtrazo(0)
+        bloco_04.setValorParcial(0.00)
+
+        inputValor_04.classList.remove("is-invalid")
+        inputValor_04.classList.remove("is-valid")
+        inputStart_04.classList.remove("is-invalid")
+        inputStart_04.classList.remove("is-valid")
+        inputEnd_04.classList.remove("is-invalid")
+        inputEnd_04.classList.remove("is-valid")
+
+        valorTotal()
+        
+    }
+
+     //btn para limpar dados bloco-05
+     btnLimpar_05.onclick = function(){
+        inputEnd_05.value = ""
+        inputStart_05.value = ""
+        inputValor_05.value = ""
+
+        dadosJuros_05.innerHTML = parseFloat(0.00).toFixed(2)
+        dadosCalcMulta_05.innerHTML = parseFloat(0.00).toFixed(2)
+        dadosDiasAtrazo_05.innerHTML = 0
+        dadosValorParcial_05.innerHTML = parseFloat(0.00).toFixed(2)
+
+        bloco_05.setJuros(0.00)
+        bloco_05.setCalcMulta(0.00)
+        bloco_05.setDiasAtrazo(0)
+        bloco_05.setValorParcial(0.00)
+
+        inputValor_05.classList.remove("is-invalid")
+        inputValor_05.classList.remove("is-valid")
+        inputStart_05.classList.remove("is-invalid")
+        inputStart_05.classList.remove("is-valid")
+        inputEnd_05.classList.remove("is-invalid")
+        inputEnd_05.classList.remove("is-valid")
+
+        valorTotal()
+        
+    }
+
     //btn fechar div bloco-02
     btnFecharDiv_02.onclick = function(){
         inputEnd_02.value = ""
@@ -726,21 +990,74 @@
 
     }
 
+     //btn fechar div bloco-04
+     btnFecharDiv_04.onclick = function(){
+        inputEnd_04.value = ""
+        inputStart_04.value = ""
+        inputValor_04.value = ""
+
+        dadosJuros_04.innerHTML = parseFloat(0.00).toFixed(2)
+        dadosCalcMulta_04.innerHTML = parseFloat(0.00).toFixed(2)
+        dadosDiasAtrazo_04.innerHTML = 0
+        dadosValorParcial_04.innerHTML = parseFloat(0.00).toFixed(2)
+
+        bloco_04.setJuros(0.00)
+        bloco_04.setCalcMulta(0.00)
+        bloco_04.setDiasAtrazo(0)
+        bloco_04.setValorParcial(0.00)
+
+        valorTotal()
+
+        div_04.style.display = 'none'
+
+        contador = 3
+
+    }
+
+     //btn fechar div bloco-05
+     btnFecharDiv_05.onclick = function(){
+        inputEnd_05.value = ""
+        inputStart_05.value = ""
+        inputValor_05.value = ""
+
+        dadosJuros_05.innerHTML = parseFloat(0.00).toFixed(2)
+        dadosCalcMulta_05.innerHTML = parseFloat(0.00).toFixed(2)
+        dadosDiasAtrazo_05.innerHTML = 0
+        dadosValorParcial_05.innerHTML = parseFloat(0.00).toFixed(2)
+
+        bloco_05.setJuros(0.00)
+        bloco_05.setCalcMulta(0.00)
+        bloco_05.setDiasAtrazo(0)
+        bloco_05.setValorParcial(0.00)
+
+        valorTotal()
+
+        div_05.style.display = 'none'
+
+        contador = 4
+
+    }
 
     //Calculo total
     function valorTotal(){
         let valor_01 = parseFloat(bloco_01.getValorParcial())
         let valor_02 = parseFloat(bloco_02.getValorParcial())
         let valor_03 = parseFloat(bloco_03.getValorParcial())
+        let valor_04 = parseFloat(bloco_04.getValorParcial())
+        let valor_05 = parseFloat(bloco_05.getValorParcial())
 
-        let total = valor_01 + valor_02 + valor_03
+        let total = valor_01 + valor_02 + valor_03 + valor_04 + valor_05
         
         dadosTotal.innerHTML = parseFloat(total).toFixed(2)
     }
+
+    // modal erro
     btnModal.onclick = function(){
       
      
     }
+
+    // btn imprimir
     btnImprimir.onclick = function(){
         window.print()
     }
@@ -786,11 +1103,41 @@
         inputEnd_03.classList.remove("is-invalid")
         inputEnd_03.classList.add("is-valid")
     }
+
+      // funções para validação bloco-04
+      function validacaoInputValor_04(){
+        inputValor_04.classList.remove("is-invalid")
+        inputValor_04.classList.add("is-valid")
+    }
+    function validacaoInputStart_04(){
+        inputStart_04.classList.remove("is-invalid")
+        inputStart_04.classList.add("is-valid")
+    }
+    function validacaoInputEnd_04(){  
+        inputEnd_04.classList.remove("is-invalid")
+        inputEnd_04.classList.add("is-valid")
+    }
+
+      // funções para validação bloco-05
+      function validacaoInputValor_05(){
+        inputValor_05.classList.remove("is-invalid")
+        inputValor_05.classList.add("is-valid")
+    }
+    function validacaoInputStart_05(){
+        inputStart_05.classList.remove("is-invalid")
+        inputStart_05.classList.add("is-valid")
+    }
+    function validacaoInputEnd_05(){  
+        inputEnd_05.classList.remove("is-invalid")
+        inputEnd_05.classList.add("is-valid")
+    }
     
+    // add nome
     function addNome(){
         $('#myPrompt').modal('show');
     }
 
+    // carregar dados ao iniciar page
     window.onload = function(){
         if (localStorage.getItem("name") == null){
             name.innerHTML = "Escreva seu nome aqui!"
